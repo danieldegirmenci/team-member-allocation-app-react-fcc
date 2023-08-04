@@ -90,23 +90,40 @@ const Employees = () => {
   }]);
 
     return (
-    <main className="container">
-      <div className="row">
+    <main className="container ">
+<div className="row justify-content-center mt-3 mb-3">
+  <div className="col-6">
+  <select>
+    <option>Team A</option>
+    <option>Team B</option>
+    <option>Team C</option>
+
+
+  </select>
+  </div>
+</div>
+
+      
+      <div className="row justify-content-center mt-3 mb-3">
         <div className="col-8">
-          {employees.map((employee) => (
-            <div key={employee.id} className="card">
-              {employee.gender === "female" ? (
-                <img src={femaleProfile} className="card-img-top" alt="Female Profile" />
-              ) : (
-                <img src={maleProfile} className="card-img-top" alt="Male Profile" />
-              )}
+          <div class="card-collection bg-dark">
+          {
+            employees.map((employee) => (
+            <div id={employee.id} className="card m-2" style={{cursor:"pointer"}}>
+            
+                <img src={employee.gender=="female"?femaleProfile:maleProfile} className="card-img-top" />
+              
+               
+             
               <div className="card-body">
-                <h5 className="card-title">Full Name:{employee.fullName}</h5>
-                <p>{employee.designation}</p>
+                <h5 className="card-title">{employee.fullName}</h5>
+                <p className="card-text">{employee.designation}</p>
                 <p>Team: {employee.teamName}</p>
               </div>
             </div>
-          ))}
+          ))
+          }
+          </div>
         </div>
       </div>
     </main>
