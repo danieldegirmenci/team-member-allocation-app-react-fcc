@@ -4,125 +4,137 @@ import maleProfile from "./images/maleProfile.jpg";
 
 
 const Employees = () => {
+  const [selectedTeam, setTeam] = useState("Team B");
+
   const [employees, setEmployees] = useState([{
     id: 1,
     fullName: "Bob Jones",
     designation: "JavaScript Developer",
     gender: "male",
-    teamName: "TeamA"
+    teamName: "Team A"
   },
   {
     id: 2,
     fullName: "Jill Bailey",
     designation: "Node Developer",
     gender: "female",
-    teamName: "TeamA"
+    teamName: "Team A"
   },
   {
     id: 3,
     fullName: "Gail Shepherd",
     designation: "Java Developer",
     gender: "female",
-    teamName: "TeamA"
+    teamName: "Team A"
   },
   {
     id: 4,
     fullName: "Sam Reynolds",
     designation: "React Developer",
     gender: "male",
-    teamName: "TeamB"
+    teamName: "Team B"
   },
   {
     id: 5,
     fullName: "David Henry",
     designation: "DotNet Developer",
     gender: "male",
-    teamName: "TeamB"
+    teamName: "Team B"
   },
   {
     id: 6,
     fullName: "Sarah Blake",
     designation: "SQL Server DBA",
     gender: "female",
-    teamName: "TeamB"
+    teamName: "Team B"
   },
   {
     id: 7,
     fullName: "James Bennet",
     designation: "Angular Developer",
     gender: "male",
-    teamName: "TeamC"
+    teamName: "Team C"
   },
   {
     id: 8,
     fullName: "Jessica Faye",
     designation: "API Developer",
     gender: "female",
-    teamName: "TeamC"
+    teamName: "Team C"
   },
   {
     id: 9,
     fullName: "Lita Stone",
     designation: "C++ Developer",
     gender: "female",
-    teamName: "TeamC"
+    teamName: "Team C"
   },
   {
     id: 10,
     fullName: "Daniel Young",
     designation: "Python Developer",
     gender: "male",
-    teamName: "TeamD"
+    teamName: "Team D"
   },
   {
     id: 11,
     fullName: "Adrian Jacobs",
     designation: "Vue Developer",
     gender: "male",
-    teamName: "TeamD"
+    teamName: "Team D"
   },
   {
     id: 12,
     fullName: "Devin Monroe",
     designation: "Graphic Designer",
     gender: "male",
-    teamName: "TeamD"
+    teamName: "Team D"
   }]);
 
-    return (
+  function handleTeamSelectionChange(event) {
+    setTeam(event.target.value);
+    console.log(event.target.value)
+  }
+  function handleEmployeeCardClick(event) {
+    const transformedEmployees = employees.map((employee) =>
+      employee.id === parseInt(event.currentTarget.id) ? (employee.teamName === selectedTeam) ? { ...employee, teamName: "" } : { ...employee, teamName: selectedTeam } : employee);
+    setEmployees(transformedEmployees);
+  }
+
+  return (
     <main className="container ">
-<div className="row justify-content-center mt-3 mb-3">
-  <div className="col-6">
-  <select>
-    <option>Team A</option>
-    <option>Team B</option>
-    <option>Team C</option>
+      <div className="row justify-content-center mt-3 mb-3">
+        <div className="col-6 ">
+          <select className="form-select form-select-lg" value={selectedTeam} onChange={handleTeamSelectionChange}>
+            <option value="Team A" className="">Team A</option>
+            <option value="Team B" className="">Team B</option>
+            <option value="Team C" className="">Team C</option>
+            <option value="Team D" className="">Team D</option>
+
+          </select>
+        </div>
+      </div>
 
 
-  </select>
-  </div>
-</div>
-
-      
       <div className="row justify-content-center mt-3 mb-3">
         <div className="col-8">
-          <div class="card-collection bg-dark">
-          {
-            employees.map((employee) => (
-            <div id={employee.id} className="card m-2" style={{cursor:"pointer"}}>
-            
-                <img src={employee.gender=="female"?femaleProfile:maleProfile} className="card-img-top" />
-              
-               
-             
-              <div className="card-body">
-                <h5 className="card-title">{employee.fullName}</h5>
-                <p className="card-text">{employee.designation}</p>
-                <p>Team: {employee.teamName}</p>
-              </div>
-            </div>
-          ))
-          }
+          <div className="card-collection">
+            {
+              employees.map((employee) => (
+                <div id={employee.id} className={(employee.teamName === selectedTeam ? "card m-2 standout" : "card m-2 ")} style={{ cursor: "pointer" }} onClick={handleEmployeeCardClick}>
+
+                  <img src={employee.gender == "female" ? femaleProfile : maleProfile} className="card-img-top" />
+
+
+
+                  <div className="card-body">
+                    <h5 className="card-title">{employee.fullName}</h5>
+                    <p className="card-text">{employee.designation}</p>
+                    <p>Team: {employee.teamName}</p>
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
