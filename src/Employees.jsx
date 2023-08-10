@@ -96,9 +96,31 @@ const Employees = () => {
     console.log(event.target.value)
   }
   function handleEmployeeCardClick(event) {
-    const transformedEmployees = employees.map((employee) =>
-      employee.id === parseInt(event.currentTarget.id) ? (employee.teamName === selectedTeam) ? { ...employee, teamName: "" } : { ...employee, teamName: selectedTeam } : employee);
+    const clickedEmployeeId = parseInt(event.currentTarget.id);
+
+    const transformedEmployees = employees.map((employee) => {
+
+      return (clickedEmployeeId===employee.id)?(employee.teamName===selectedTeam)?{...employee,teamName:""}:{...employee,teamName:selectedTeam}:employee
+
+ //      if (employee.id === clickedEmployeeId) {
+
+ //        if (employee.teamName === selectedTeam) {
+ //          return { ...employee, teamName: "" };
+ //        }
+ //        else {
+
+ //          return { ...employee, teamName: selectedTeam }
+ //        }
+ // }
+ //      else {
+ //        return employee
+ //      }
+
+
+    });
+
     setEmployees(transformedEmployees);
+
   }
 
   return (
