@@ -3,7 +3,9 @@ import './App.css';
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Employees from "./Employees";
+import GroupedTeamMembers from "./GroupedTeamMembers"
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 
@@ -149,17 +151,36 @@ function App() {
 
 
   return (
-    <main>
+          <Router>
+
       <Header selectedTeam={selectedTeam}
         teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length} />
-      <Employees employees={employees}
-        selectedTeam={selectedTeam}
-        handleEmployeeCardClick={handleEmployeeCardClick}
-        handleTeamSelectionChange={handleTeamSelectionChange}
-      />
+        
+
+       <Routes>
+         <Route 
+           path="/"
+           element={(
+             <Employees 
+               employees={employees}
+               selectedTeam={selectedTeam}
+               handleEmployeeCardClick={handleEmployeeCardClick}
+                handleTeamSelectionChange={handleTeamSelectionChange}/>)}
+           />
+        <Route 
+           path="/GroupedTeamMembers"
+           element={<GroupedTeamMembers/>}
+          />
+       
+        </Routes> 
+         
       <Footer />
-    </main>
+                  </Router>
+
+
   );
+
+                    
 }
 
 export default App;
