@@ -3,6 +3,10 @@ import './App.css';
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Employees from "./Employees";
+import Nav from "./Nav";
+import NotFound from "./NotFound";
+
+
 import GroupedTeamMembers from "./GroupedTeamMembers"
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -109,6 +113,7 @@ function App() {
   useEffect(()=>{
     localStorage.setItem("selectedTeam",JSON.stringify(selectedTeam))
     
+    
   },[selectedTeam])
 
   function handleTeamSelectionChange(event) {
@@ -152,11 +157,11 @@ function App() {
 
   return (
           <Router>
+<Nav/>
 
       <Header selectedTeam={selectedTeam}
         teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length} />
         
-
        <Routes>
          <Route 
            path="/"
@@ -169,7 +174,11 @@ function App() {
            />
         <Route 
            path="/GroupedTeamMembers"
-           element={<GroupedTeamMembers/>}
+           element={<GroupedTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>}
+          />
+         <Route 
+           path="*"
+           element={<NotFound />}
           />
        
         </Routes> 
