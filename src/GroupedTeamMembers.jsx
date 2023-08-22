@@ -47,7 +47,7 @@ const GroupedTeamMembers = ({employees,setTeam,selectedTeam}) => {
               Team Name:{item.team}
             
             </h4>
-              <div id={"collapse_" + item.team} className={item.collapsed === true ? "collapsed":""}>
+              <div id={"collapse_" + item.team} className={item.collapsed === true ? "collapse":""}>
                 <hr/>
                 {
                   item.members.map(member=>{
