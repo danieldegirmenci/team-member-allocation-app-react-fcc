@@ -16,7 +16,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
 
 
-
   
   const [selectedTeam, setTeam] = useState(JSON.parse(localStorage.getItem("selectedTeam")) || "Team A");
 
