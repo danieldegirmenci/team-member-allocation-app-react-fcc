@@ -105,7 +105,6 @@ export const DataProvider = ({ children }) => {
 
   function handleTeamSelectionChange(event) {
     setTeam(event.target.value);
-    console.log(event.target.value)
   }
   function handleEmployeeCardClick(event) {
     const clickedEmployeeId = parseInt(event.currentTarget.id);
