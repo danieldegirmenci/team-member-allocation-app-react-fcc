@@ -1,36 +1,68 @@
-import { useState, useContext } from "react";
+import {useState , useContext} from "react";
 import DataContext from "./context/DataContext";
 
 const GroupedTeamMembers = () => {
-  const { handleTeamClick,groupedEmployees } = useContext(DataContext);
+  const {employees,setTeam,selectedTeam}=useContext(DataContext);
 
+  const [groupedEmployees, setGroupedData]=useState(groupedTeamMembers())
 
+  function groupedTeamMembers(){
+    var teams=[];
 
+    var teamAMembers=employees.filter((employee)=> employee.teamName==="Team A");
+    var teamA={team:"Team A",members:teamAMembers,collapsed:selectedTeam==="Team A" ? false:true}
+    teams.push(teamA);
+    
+    var teamBMembers=employees.filter((employee)=> employee.teamName==="Team B");
+    var teamB={team:"Team B",members:teamBMembers,collapsed:selectedTeam==="Team B" ? false:true}
+    teams.push(teamB);
+    
+    var teamCMembers=employees.filter((employee)=> employee.teamName==="Team C");
+    var teamC={team:"Team C", members:teamCMembers, collapsed:selectedTeam==="Team C" ? false:true}
+    teams.push(teamC);
+    
+    var teamDMembers=employees.filter((employee)=> employee.teamName==="Team D");
+    var teamD={team:"Team D",members:teamDMembers,collapsed:selectedTeam==="Team D" ? false:true}
+   teams.push(teamD);
+    
+    return teams;
+   
+  }
 
+  function handleTeamClick(event){
+    var transformedGroupData=groupedEmployees.map((groupedData)=>groupedData.team === event.currentTarget.id 
+      ?{...groupedData,collapsed : !groupedData.collapsed}
+      :groupedData);
+
+    setGroupedData(transformedGroupData);
+    setTeam(event.currentTarget.id);
+    
+  }
+  
   return (
     <main className="container">
       {
-        groupedEmployees.map((item) => {
-          return (
-            <div key={item.team} className="card mt-2" style={{ cursor: "pointer" }}>
-              <h4 id={item.team} className="card-header text-secondary bg-white" onClick={handleTeamClick}>
-                Team Name:{item.team}
-
-              </h4>
-              <div id={"collapse_" + item.team} className={item.collapsed === true ? "collapse" : ""}>
-                <hr />
+        groupedEmployees.map((item)=>{
+          return(
+            <div key={item.team} className="card mt-2" style={{cursor:"pointer"}}>
+            <h4 id={item.team} className="card-header text-secondary bg-white" onClick={handleTeamClick}>
+              Team Name:{item.team}
+            
+            </h4>
+              <div id={"collapse_" + item.team} className={item.collapsed === true ? "collapse":""}>
+                <hr/>
                 {
-                  item.members.map(member => {
-                    return (
+                  item.members.map(member=>{
+                    return(
                       <div className="mt-2">
                         <h5 className="card-title mt-2">
-                          <span className="text-dark"> Full Name: {member.fullName} </span>
+                            <span className="text-dark"> Full Name: {member.fullName} </span>
                         </h5>
-                        <p>Designation: {member.designation} </p>
+                            <p>Designation: {member.designation} </p>
                       </div>
                     )
                   })
-                }
+                } 
               </div>
             </div>
           )

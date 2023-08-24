@@ -92,42 +92,6 @@ export const DataProvider = ({ children }) => {
     teamName: "Team D"
   }]);
 
-  const [groupedEmployees, setGroupedData] = useState(groupedTeamMembers())
-
-
-  function groupedTeamMembers() {
-    var teams = [];
-
-    var teamAMembers = employees.filter((employee) => employee.teamName === "Team A");
-    var teamA = { team: "Team A", members: teamAMembers, collapsed: selectedTeam === "Team A" ? false : true }
-    teams.push(teamA);
-
-    var teamBMembers = employees.filter((employee) => employee.teamName === "Team B");
-    var teamB = { team: "Team B", members: teamBMembers, collapsed: selectedTeam === "Team B" ? false : true }
-    teams.push(teamB);
-
-    var teamCMembers = employees.filter((employee) => employee.teamName === "Team C");
-    var teamC = { team: "Team C", members: teamCMembers, collapsed: selectedTeam === "Team C" ? false : true }
-    teams.push(teamC);
-
-    var teamDMembers = employees.filter((employee) => employee.teamName === "Team D");
-    var teamD = { team: "Team D", members: teamDMembers, collapsed: selectedTeam === "Team D" ? false : true }
-    teams.push(teamD);
-
-    return teams;
-
-  }
-
-  function handleTeamClick(event) {
-    var transformedGroupData = groupedEmployees.map((groupedData) => groupedData.team === event.currentTarget.id
-      ? { ...groupedData, collapsed: !groupedData.collapsed }
-      : groupedData);
-
-    setGroupedData(transformedGroupData);
-    setTeam(event.currentTarget.id);
-
-  }
-
   useEffect(() => {
     localStorage.setItem("employeeList", JSON.stringify(employees))
 
@@ -172,9 +136,9 @@ export const DataProvider = ({ children }) => {
 
   }
 
+  
 
-
-  return <DataContext.Provider value={{ employees, selectedTeam, setTeam, handleTeamSelectionChange, handleEmployeeCardClick, groupedTeamMembers, handleTeamClick,groupedEmployees }}>
+  return <DataContext.Provider value={{ employees, selectedTeam, setTeam, handleTeamSelectionChange, handleEmployeeCardClick }}>
     {children}
   </DataContext.Provider>
 
